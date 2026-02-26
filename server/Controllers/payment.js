@@ -1,8 +1,8 @@
 import { Payment } from "../Models/Payment.js";
 import Razorpay from "razorpay";
 const razorpay = new Razorpay({
-  key_id: "rzp_test_SGpCmIPp66ng5N",
-  key_secret: "n7RqPSHLo1eZo03Nho5LJ0cg",
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 export const checkout = async (req, res) => {
@@ -66,3 +66,4 @@ export const allOrder = async (req, res) => {
 
   res.json({ orders });
 };
+
