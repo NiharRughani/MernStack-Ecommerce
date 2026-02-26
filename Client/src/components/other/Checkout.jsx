@@ -40,7 +40,7 @@ const Checkout = () => {
       const { orderId, amount: orderAmount } = orderResponse.data;
 
       var options = {
-        key: "rzp_test_SGpCmIPp66ng5N", // Enter the Key ID generated from the Dashboard
+        key: import.meta.env.VITE_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
         amount: orderAmount * 100, // Amount is in currency subunits.
         currency: "INR",
         name: "Nihar Rughani",
@@ -137,3 +137,4 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
