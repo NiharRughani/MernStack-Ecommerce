@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import AppContext from "../../context/AppContext";
-import ShowOrderProduct from "./showOrderProduct";
+import ShowOrderProduct from "./ShowOrderProduct";
 import { useNavigate } from "react-router-dom";
 const OrderConfirmation = () => {
   const { userOrder } = useContext(AppContext);
