@@ -1,11 +1,10 @@
 import jwt from "jsonwebtoken";
-
 import { User } from "../Models/User.js";
 
 export const isAuthenticated = async (req, res, next) => {
   const token = req.header("Auth");
 
-  if (!token) return res.json({ message: "login  first" });
+  if (!token) return res.json({ message: "login first" });
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -19,9 +18,5 @@ export const isAuthenticated = async (req, res, next) => {
 
   req.user = user;
 
-  //full user is saved inside req.user
-  // but we can generally use whole user while working with the id as schema data types have object id as their type
-
   next();
 };
-
