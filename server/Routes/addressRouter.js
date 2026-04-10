@@ -1,6 +1,6 @@
 import express from "express";
 import { addAddress, getAddress } from "../Controllers/address.js";
-import { isAuthenticated } from "../Middlewares/Auth.js";
+import { isAuthenticated } from "../Middlewares/auth.js";
 
 const router = express.Router();
 
