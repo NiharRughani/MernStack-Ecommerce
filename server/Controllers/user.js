@@ -50,6 +50,7 @@ export const login = async (req, res) => {
 };
 
 export const getAllUsers = async (req, res) => {
+  console.log("get all users hit");
   try {
     let user = await User.find().sort({ createdAt: -1 });
     return res.json({ users: user });
