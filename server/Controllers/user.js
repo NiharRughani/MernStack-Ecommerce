@@ -1,4 +1,3 @@
-// creating the user
 import bcrypt from "bcryptjs";
 import { User } from "../Models/User.js";
 import jwt from "jsonwebtoken";
@@ -40,7 +39,8 @@ export const login = async (req, res) => {
 
     if (!validPassword)
       return res.json({ message: "inValid Credential", success: false });
-    const token = jwt.sign({ userId: user._id }, "aaslkjfddfs", {
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "365d",
     });
     res.json({ message: `welcome ${user.name}`, token, success: true, user });
@@ -48,8 +48,6 @@ export const login = async (req, res) => {
     res.json({ message: error.message });
   }
 };
-
-// get all users
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -59,8 +57,6 @@ export const getAllUsers = async (req, res) => {
     res.json({ error: err.message });
   }
 };
-
-// user profile
 
 export const profile = async (req, res) => {
   res.json({ user: req.user });
