@@ -1,5 +1,6 @@
 import { Payment } from "../Models/Payment.js";
 import Razorpay from "razorpay";
+console.log("Razorpay ENV:", process.env.RAZORPAY_KEY_ID, process.env.RAZORPAY_KEY_SECRET);
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -54,9 +55,9 @@ export const verify = async (req, res) => {
 export const userOrder = async (req, res) => {
   let userId = req.user._id.toString();
 
-  let orders = await Payment.find({ userId: userId }).sort({ _id: -1 }); // descending order
+  let orders = await Payment.find({ userId: userId }).sort({ createdAt: -1 }); // descending order
+
   res.json({ orders });
-  console.log("req.user is", req.user);
 };
 
 //all orders
@@ -66,4 +67,3 @@ export const allOrder = async (req, res) => {
 
   res.json({ orders });
 };
-
