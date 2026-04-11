@@ -2,21 +2,24 @@ import jwt from "jsonwebtoken";
 import { User } from "../Models/User.js";
 
 export const isAuthenticated = async (req, res, next) => {
-  const token = req.header("Auth");
+  try {
+    const token = req.header("Auth");
 
-  if (!token) return res.json({ message: "login first" });
+    if (!token) return res.json({ message: "login first" });
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-  console.log(decoded);
+    const id = decoded.userId;
 
-  const id = decoded.userId;
+    let user = await User.findById(id);
 
-  let user = await User.findById(id);
+    if (!user) return res.json({ message: "user does not exist" });
 
-  if (!user) return res.json({ message: "user does not exist" });
+    req.user = user;
 
-  req.user = user;
-
-  next();
+    next();
+  } catch (err) {
+    console.log("Auth error:", err.message);
+    return res.status(401).json({ message: "Invalid or expired token, please login again" });
+  }
 };
