@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { useState } from "react";
 import AppContext from "../../context/AppContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ const Login = () => {
   });
   const navigate = useNavigate();
   const { login } = useContext(AppContext);
+
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -19,7 +20,6 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // alert("your form has been submitted");
     const result = await login(email, password);
 
     if (result?.data?.success) {
@@ -27,13 +27,8 @@ const Login = () => {
     } else {
       console.log("cannot navigate");
     }
-    // console.log(formData);
-    // setFormData({
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    // });
   };
+
   return (
     <>
       <div
@@ -45,6 +40,7 @@ const Login = () => {
         }}
       >
         <h1 className="text-center">user Login</h1>
+
         <form onSubmit={submitHandler}>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
@@ -60,6 +56,7 @@ const Login = () => {
               aria-describedby="emailHelp"
             />
           </div>
+
           <div className="mb-3">
             <label htmlFor="exampleInputPassword1" className="form-label">
               Password
@@ -73,12 +70,23 @@ const Login = () => {
               id="exampleInputPassword1"
             />
           </div>
+
           <div className="d-grid col-6 mx-auto my-3">
             <button type="submit" className="btn btn-primary">
               Login
             </button>
           </div>
         </form>
+
+     
+        <div className="text-center mt-3">
+          <p>
+            Not registered?{" "}
+            <Link to="/register" style={{ color: "blue" }}>
+              Register here
+            </Link>
+          </p>
+        </div>
       </div>
     </>
   );
